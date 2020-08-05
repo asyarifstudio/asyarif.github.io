@@ -86,7 +86,7 @@ class Car{
                 this.steer(Math.PI / 36);
                 break;
             case 37: //left
-                this.steer(this.angle -= Math.PI / 36);
+                this.steer(-Math.PI / 36);
                 break;
             case 40: //down
                 this.brake();
