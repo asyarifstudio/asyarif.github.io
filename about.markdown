@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Assalamu Alaikum
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Kenalkan nama saya syarif, saya seorang software engineer dan R&D project leader di Thales DIS Singapura. Saya juga adalah suami dari Rita Fatimah dan ayah dari Muhammad Attaqi Syarif dan Atiqah Nabila Syarif
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+My name is Ahmad Syarif, you may call me syarif. In Indonesia, most people, including me, do not have family name. I'm currently working as software engineer and R&D Project Leader at Thales DIS Singapore. I'm also an husband to Rita Fatimah and a father to two, Muhammad Attaqi Syarif and Atiqah Nabila Syarif
 
 
-[jekyll-organization]: https://github.com/jekyll
