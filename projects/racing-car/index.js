@@ -11,6 +11,14 @@ class Game {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.car.draw();
     }
+
+}
+
+class Track{
+    constructor(context){
+        this.context = context;
+        
+    }
 }
 
 class Car{
@@ -90,6 +98,10 @@ class Car{
 
 }
 
-var game = new Game();
+const game = new Game();
+const run = function(){
+    game.update();
+    window.requestAnimationFrame(run);
+}
 
-setInterval(function(){game.update()},12);
+window.requestAnimationFrame(run);
