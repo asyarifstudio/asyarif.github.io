@@ -4,7 +4,7 @@ class Game {
         this.canvas.height = window.innerHeight;
         this.canvas.width = window.innerWidth;
         this.context = this.canvas.getContext('2d');
-        this.car = new Car(this.context, 40, 700 ,0,0.5);
+        this.car = new Car(this.context, 40, 700 ,0,4);
     }
 
     update(){   
@@ -14,14 +14,15 @@ class Game {
 }
 
 class Car{
-    constructor(context,x,y,angle,speed){
+    constructor(context,x,y,angle,maxSpeed){
         this.context = context;
         this.height = 40;
         this.width = 30;
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.speed = speed;
+        this.maxSpeed = maxSpeed;
+        this.speed = 0;
         document.addEventListener('keydown',(event)=>{
             this.move(event);
         })
@@ -37,22 +38,50 @@ class Car{
         this.context.fillRect(-this.width/2,-this.height/2,this.width, this.height);
         this.context.restore();
     }
+    /**
+     * steer to x degree relative to current orientation
+     * @param {number} degree degree in radian
+     */
+    steer(degree){
+        this.angle += degree;
+    }
+
+    /**
+     * accelerate the speed by 0.1
+     */
+    accelerate(){
+        if(this.speed < this.maxSpeed){
+            this.speed += 0.1;
+        }
+    }
+    
+    /**
+     * decrease the speed by 0.5
+     */
+    brake(){
+        if(this.speed > 0.5 ){
+            this.speed -= 0.5
+        }
+        else{
+            this.speed = 0;
+        }
+    }
 
     move(e){
         e = e || window.event;
         var move = [0,0];
         switch(e.keyCode){
             case 38: // up
-                if(this.speed < 2.0) this.speed += 0.1;
+                this.accelerate()
                 break;
             case 39: //right
-                this.angle += Math.PI / 36;
+                this.steer(Math.PI / 36);
                 break;
             case 37: //left
-                this.angle -= Math.PI / 36;
+                this.steer(this.angle -= Math.PI / 36);
                 break;
             case 40: //down
-                if(this.speed > 0.0) this.speed -= 0.1;
+                this.brake();
                 break;
         }
         
