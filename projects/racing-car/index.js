@@ -12,6 +12,12 @@ class Game {
     update(){   
         //check everything here
         this.car.update();
+        if(this.track.isImpact(this.car)){
+            this.car.color = "#FF0000";
+        }
+        else{
+            this.car.color = "#00FF00";
+        }
 
 
         //do the drawing
@@ -46,7 +52,89 @@ class Track{
     }
 
     isImpact(car){
-        //we need to create car line of the square
+        
+        for(var i = 0;i<car.point.length;i++){
+            var carLine;
+
+            if(i==0){
+                carLine = {p1:car.point[car.point.length-1],p2:car.point[i]};
+            }
+            else{
+                carLine = {p1:car.point[i-1],p2:car.point[i]};
+            }
+
+            //loop throught all innerPoint
+            for(var j = 1;j<this.innerLines.length ; j++){
+                var innerLine;
+                
+                
+                innerLine = {p1:this.innerLines[j-1],p2:this.innerLines[j]};
+                
+
+                if(this.isIntersect(carLine,innerLine)){
+                    return true;
+                }
+            }
+
+            //loop throught all outerPoint
+            for(var j = 1;j<this.outerLines.length ; j++){
+                var outerLine;
+                
+                    outerLine = {p1:this.outerLines[j-1],p2:this.outerLines[j]};
+                
+
+                if(this.isIntersect(carLine,outerLine)){
+                    return true;
+                }
+            }
+
+
+            
+        }
+
+    }
+
+    isIntersect(l1,l2){
+        var dir1 = this.direction(l1.p1, l1.p2, l2.p1);
+        var dir2 = this.direction(l1.p1, l1.p2, l2.p2);
+        var dir3 = this.direction(l2.p1, l2.p2, l1.p1);
+        var dir4 = this.direction(l2.p1, l2.p2, l1.p2);
+
+        if(dir1 != dir2 && dir3 != dir4)
+            return true; //they are intersecting
+
+        if(dir1==0 && this.onLine(l1, l2.p1)) //when p2 of line2 are on the line1
+            return true;
+
+        if(dir2==0 && this.onLine(l1, l2.p2)) //when p1 of line2 are on the line1
+            return true;
+
+        if(dir3==0 && this.onLine(l2, l1.p1)) //when p2 of line1 are on the line2
+            return true;
+
+        if(dir4==0 && this.onLine(l2, l1.p2)) //when p1 of line1 are on the line2
+            return true;
+    }
+
+    direction(a,b,c){
+        var val = (b.y-a.y)*(c.x-b.x)-(b.x-a.x)*(c.y-b.y);
+        if(val == 0){
+            return 0;
+        }
+        else if(val<0){
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+
+    onLine(l1,p){
+        if(p.x <= Math.max(l1.p1.x, l1.p2.x) && p.x <= Math.min(l1.p1.x, l1.p2.x) &&
+            (p.y <= Math.max(l1.p1.y, l1.p2.y) && p.y <= Math.min(l1.p1.y, l1.p2.y)))
+            return true;
+        
+        return false;
 
     }
 
@@ -89,6 +177,7 @@ class Car{
         this.angle = angle;
         this.maxSpeed = maxSpeed;
         this.speed = 0;
+        this.color = "#00FF00";
         document.addEventListener('keydown',(event)=>{
             this.move(event);
         })
@@ -132,7 +221,7 @@ class Car{
         this.context.save();
         this.context.translate(this.x,this.y)
         this.context.rotate(this.angle);
-        this.context.fillStyle = "#FF0000";
+        this.context.fillStyle = this.color;
         this.context.fillRect(-this.width/2,-this.height/2,this.width, this.height);
         this.context.restore();
 
@@ -168,11 +257,11 @@ class Car{
      * decrease the speed by 0.5
      */
     brake(){
-        if(this.speed > 0.5 ){
+        if(this.speed > -0.5 ){
             this.speed -= 0.5
         }
         else{
-            this.speed = 0;
+            this.speed = -0.5;
         }
     }
 
