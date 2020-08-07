@@ -247,30 +247,23 @@ class Car{
     /**
      * accelerate the speed by 0.1
      */
-    accelerate(){
-        if(this.speed < this.maxSpeed){
-            this.speed += 0.1;
+    accelerate(speed){
+        if(speed < this.maxSpeed && speed>=0){
+            this.speed = speed;
         }
+        
     }
     
     /**
      * decrease the speed by 0.5
      */
-    brake(){
-        if(this.speed > -0.5 ){
-            this.speed -= 0.5
-        }
-        else{
-            this.speed = -0.5;
-        }
-    }
 
     move(e){
         e = e || window.event;
         var move = [0,0];
         switch(e.keyCode){
             case 38: // up
-                this.accelerate()
+                this.accelerate(this.speed + 0.1)
                 break;
             case 39: //right
                 this.steer(Math.PI / 36);
@@ -279,7 +272,7 @@ class Car{
                 this.steer(-Math.PI / 36);
                 break;
             case 40: //down
-                this.brake();
+                this.accelerate(this.speed - 0.5)
                 break;
         }
         
