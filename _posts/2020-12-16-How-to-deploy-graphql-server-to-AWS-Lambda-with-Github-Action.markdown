@@ -11,4 +11,12 @@ I'm starting by reading a tutorial in [GraphQL official guideline](https://www.a
 1. using [apollo-server-lambda](https://www.npmjs.com/package/apollo-server-lambda)
 2. I'm gonna need another tools, *serverless* to deploy the server
 
-But the 2nd point, I don't really like it because it means I need to deploy it from my computer which means it does not achieve my objective for CI/CD using github action.
+But the 2nd point, I don't really like it because it means I need to deploy it from my computer which means it does not achieve my objective for CI/CD using github action. but at least I need to do the first part. But after reading more tuturial, especially from [DEV](https://dev.to/nobleobioma/deploy-node-js-to-aws-lambda-using-github-actions-5a82), I might not need to do that. 
+
+I develop my Graphql server using expressJS. The Graphql acts as middleware so from the main entry point is still expressJS. so it means it has to be similar with other express JS code. What I need to do however, is to export an handler constant value from my index.ts so that it will be understood by the AWS lambda
+
+First, I'm gonna need to create AWS lambda function
+
+
+
+
