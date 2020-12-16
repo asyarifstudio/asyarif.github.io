@@ -182,6 +182,7 @@ class Car{
             this.move(event);
         })
         this.update();
+        
 
     }
 
